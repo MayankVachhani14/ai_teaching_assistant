@@ -1,14 +1,15 @@
 def chunk_segments(segments, chunk_size=100):
 
     chunks = []
-    chunks_text = []
+    current_text = ""
     current_start = None
     current_end = None
 
     for segment in segments:
+
         if current_start is None:
             current_start = segment["start"]
-            
+
         current_text += " " + segment["text"]
         current_end = segment["end"]
 
@@ -17,9 +18,7 @@ def chunk_segments(segments, chunk_size=100):
                 "text": current_text.strip(),
                 "start": current_start,
                 "end": current_end
-                
             })
-
             current_text = ""
             current_start = None
 
@@ -28,6 +27,6 @@ def chunk_segments(segments, chunk_size=100):
             "text": current_text.strip(),
             "start": current_start,
             "end": current_end
-        })       
-            
+        })
+
     return chunks
